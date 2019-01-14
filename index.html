@@ -154,10 +154,12 @@
         mutations.forEach(function(mutation) {
           checkHeight(document.getElementsByClassName('check-overflow')); 
           maxLineCheck(); 
+          maxHeightCheck(); 
         });
       });    
       
       const maxLineChecks = document.querySelectorAll('[data-max-line]');
+      const maxHeightChecks = document.querySelectorAll('[data-max-height]');
       const checkOverflows = document.querySelectorAll('.check-overflow');
 
       if ( maxLineChecks.length !== 0) {
@@ -172,6 +174,19 @@
           });        
         });
       }
+      
+      if ( maxHeightChecks.length !== 0) {
+        maxHeightChecks.forEach(maxHeightCheck => {
+          overflowObserver.observe(maxHeightCheck, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });
+      }      
 
       if ( checkOverflows.length !== 0) {      
         checkOverflows.forEach(checkOverflow => {

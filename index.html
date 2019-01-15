@@ -201,6 +201,13 @@
         });      
       }
       
+      // Calling text size restriction functions once the fonts are loaded and ready!
+      document.fonts.ready.then(() => {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
       placeholderController();
       checkCrop();  
       checkExport(); 

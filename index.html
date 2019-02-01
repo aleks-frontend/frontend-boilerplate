@@ -36,19 +36,23 @@
         content: '+';
         position: absolute;
         z-index: 5;
-        top: 0.1rem;
-        right: 0.1rem;
-        height: .3107rem;
-        width: .3107rem;
+        top: 0;
+        right: 0;
+        height: 1em;
+        width: 1em;
         border: 0.01rem solid red;
         color: red;
-        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        padding: 0;
         box-sizing: border-box;
-        font-size: 0.2279rem;
+        font-size: 1em;
         text-align: center;
-        line-height: .2693rem;
+        line-height: 1em;
         background-color: white;
-        text-align: center; }
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .overflow:hover:before {
         background-color: red;
         color: white; }
@@ -56,20 +60,24 @@
         display: none; }
       .overflow:hover:after {
         display: block;
-        content: 'There is overset content in this column. Please remove it';
+        content: 'Max number of lines exceeded!';
         position: absolute;
-        top: 0.5rem;
-        right:  0.1rem;
+        top: 0;
+        right: 0;
         background-color: black;
         color: white;
-        border-radius: 0.01rem;
-        padding: 0.2rem 0.2rem;        
+        border-radius: 0;
+        padding: 0.5em 4em 0.5em 0.5em;
         box-sizing: border-box;
-        font-size: 0.35rem;
-        font-weight: 400;     
+        font-size: 0.3em;
+        font-weight: 400;
         text-align: right;
-        width: 6rem;
-        line-height: 0.45rem;
+        line-height: 1.1em;
+        z-index: 2;
+      }
+
+      .overflow[data-max-height]:hover:after {
+        content: 'Max height exceeded!';  
       }
       
       .overflow[data-char-limit]:hover:after {
@@ -95,6 +103,10 @@
       .is-export-mode .placeholder__container,
       .is-export-mode .placeholder__trigger {
         display: none;
+      }      
+      
+      .box {
+        width: 300px;
       }
 
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
@@ -108,18 +120,17 @@
     </div><!-- end placeholderMaster -->
     <div class="page">
 
-      <div class="bleed center-children">
+      <div class="bleed">
 
         <div class="container fit">
-          <div class="backgroundImage">{{{ resizable-background-image }}}</div>
 
         </div><!--container fit-->
 
       </div><!--bleed-->
 
     </div><!--page-->
-    
-    
+
+
     <script>
       window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};                                      
     </script>
@@ -131,7 +142,7 @@
     <script src="check-height.js"></script>    
     <script src="max-line-check.js"></script>    
     <script src="max-height-check.js"></script>    
-    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.3.min.js" type="text/javascript"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
     <script>
 
       // Fix for the resizable background images - fullscreen and digital vairaitons only
@@ -148,18 +159,21 @@
           });
         }
       }
-      
+
       // Tracking text changes and firing text restriction functions (mutationObserver)
       const overflowObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
           checkHeight(document.getElementsByClassName('check-overflow')); 
           maxLineCheck(); 
           maxHeightCheck(); 
+          charLimit();
         });
       });    
-      
+
       const maxLineChecks = document.querySelectorAll('[data-max-line]');
       const maxHeightChecks = document.querySelectorAll('[data-max-height]');
+      const charLimitChecks = document.querySelectorAll('[data-char-limit]');
+      const textFitChecks = document.querySelectorAll('.textFit');
       const checkOverflows = document.querySelectorAll('.check-overflow');
 
       if ( maxLineChecks.length !== 0) {
@@ -174,7 +188,7 @@
           });        
         });
       }
-      
+
       if ( maxHeightChecks.length !== 0) {
         maxHeightChecks.forEach(maxHeightCheck => {
           overflowObserver.observe(maxHeightCheck, {
@@ -199,13 +213,26 @@
             characterDataOldValue: true
           });        
         });      
-      }
+      }      
       
-      // Calling text size restriction functions once the fonts are loaded and ready!
+      if ( charLimitChecks.length !== 0) {
+        charLimitChecks.forEach(charLimitCheck => {
+          overflowObserver.observe(charLimitCheck, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });
+      }      
+
+      // Calling text size restriction functions once the fonts are loaded
       document.fonts.ready.then(() => {
-        checkHeight(document.getElementsByClassName('check-overflow'));
-        maxLineCheck();
-        maxHeightCheck();
+        checkHeight(document.getElementsByClassName('check-overflow')); 
+        maxLineCheck(); 
+        maxHeightCheck();         
       });
 
       placeholderController();
@@ -214,11 +241,9 @@
       charLimit();
 
       // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
-      /*
       TextFit.fit({
         selector: '.textFit'
-      });      
-      */
+      });
 
     </script>
 

@@ -103,16 +103,12 @@
       .is-export-mode .placeholder__container,
       .is-export-mode .placeholder__trigger {
         display: none;
-      }      
-      
-      .box {
-        width: 300px;
-      }
+      }            
 
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
     </style>
   </head>
-  <body style="background: white" class="u-placeholder-{{ placeholder-toggle }}{{^placeholder-toggle}}hide{{/placeholder-toggle}}" data-crop="{{show-crop}}">
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
       {{#placeholder-image-1}}
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>

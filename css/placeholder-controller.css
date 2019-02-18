@@ -1,0 +1,141 @@
+/* Placeholder Styling */
+.placeholderMaster {
+    display: none;
+}
+
+.placeholder__container {
+  position: absolute;
+  top: 3mm;
+  left: 3mm;
+  right: 3mm;
+  bottom: 3mm;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.3s all;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;   
+  opacity: 0.4;
+}
+
+.u-placeholder-locked .placeholder__container {
+  opacity: 1;  
+}
+
+.u-placeholder-hide .placeholder__container,
+.u-placeholder-hide .placeholder__trigger {
+  display: none;
+}
+
+.placeholder__trigger {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  border-bottom-left-radius: 1rem;
+  background: #467BE3;
+  transition: all 0.3s;
+  transform: translate(30%, -30%);
+  opacity: 0;
+  z-index: 9999;
+}   
+
+.bleed:hover .placeholder__trigger:hover {
+  cursor: pointer;
+  opacity: 1;        
+}
+
+.placeholder__trigger svg {
+  width: 50%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-25%, -50%);
+}
+
+.bleed:hover .placeholder__trigger {
+  transform: translate(0, 0);
+  opacity: 0.5;
+}      
+
+.bleed:hover .placeholder__trigger:hover + .placeholder__container {
+  opacity: 1;
+}      
+
+.placeholderBtn__container {
+  position: absolute;
+  top: 0;
+  left: -0.6rem;
+  bottom: -0.6rem;
+  right: 0;
+  transition: 0.3s all;
+  transform: rotate(-90deg);
+  transform-origin: top right;
+  opacity: 0;
+}
+
+.placeholder__trigger:hover .placeholderBtn__container {
+  transform: rotate(0deg);
+  opacity: 1;
+}
+
+.placeholderBtn {
+  position: absolute;
+  left: 0;
+  top: 0.04rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #467BE3;
+  color: #fff;
+  font-size: 0.27rem;
+  text-decoration: none;
+  line-height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}     
+
+.placeholderBtn--plus::before {
+  content: '+';
+}            
+
+.placeholderBtn--minus {
+  top: 0.68rem;
+  left: 0.4rem;       
+}    
+
+.placeholderBtn--minus::before {
+  content: '-';        
+}
+
+.placeholderBtn--lock {
+  bottom: 0;
+  top: auto;
+  right: 0.04rem;
+  left: auto;
+}
+
+.placeholderBtn--lock::before {
+  content: 'L';
+}
+
+.u-placeholder-locked .placeholderBtn--lock::before {
+  content: 'U';
+}      
+
+/* End Placeholder Styling */

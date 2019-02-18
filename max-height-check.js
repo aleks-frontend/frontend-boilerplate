@@ -1,24 +1,41 @@
-function maxHeightCheck(orientation = 'portrait') {
+function maxHeightCheck(variation = 'primary') {
   const textBlocks = document.querySelectorAll('[data-max-height]');
+  
   textBlocks.forEach(block => {
+    const dynamicCheck = block.dataset.maxHeight == 'dynamic' || block.dataset.maxHeightDynamic == 'true';
+    if ( dynamicCheck ) dynamicAssign(block);
+    
+    const cssCheck = block.dataset.maxHeight == 'css';    
     const bodyComputedStyle = window.getComputedStyle(document.body);
     const blockHeight = block.scrollHeight;
     const unit = block.dataset.maxUnit || 'px';
-    // Getting the data-max-line attribute value (max number of lines allowed)
     const maxHeightAlt = block.dataset.maxHeightAlt || block.dataset.maxHeight;
-    let maxHeight = (orientation == 'portrait') ? block.dataset.maxHeight : maxHeightAlt;
-    // Setting the element's max-height 
-    block.style.maxHeight = maxHeight + unit;
+    let maxHeight = (variation == 'primary') ? block.dataset.maxHeight : maxHeightAlt;    
+    
+    if ( cssCheck ) {
+      const computedBlockStyle = window.getComputedStyle(block);
+      maxHeight = parseInt(computedBlockStyle.maxHeight);
+    } else {
+      // Setting the element's max-height
+      block.style.maxHeight = maxHeight + unit;
 
-    if ( unit == 'rem' ) {
-      maxHeight = maxHeight * parseFloat(bodyComputedStyle.fontSize);
+      // Recalculating maxHeight in case 'rem' is set as a unit
+      if ( unit == 'rem' ) maxHeight = maxHeight * parseFloat(bodyComputedStyle.fontSize);      
     }
     
     // Adding an 'overflow' class to an element if it's offset height exceedes the max-line-height
-    if ( blockHeight > maxHeight ) {
-      block.classList.add('overflow');
-    } else {
-      block.classList.remove('overflow');
-    }
+    ( blockHeight > maxHeight ) ? block.classList.add('overflow') : block.classList.remove('overflow');
   });
+}
+
+function dynamicAssign(element) {
+  const container = element.parentNode;  
+  container.style.overflow = 'hidden';  
+  const containerHeight = container.offsetHeight;
+  const subtrahendHeight = container.querySelector('.js-subtrahend').offsetHeight || 0;
+  const dynamicHeight = containerHeight - subtrahendHeight;
+
+  element.dataset.maxHeightDynamic = 'true';
+  element.dataset.maxHeight = dynamicHeight;
+  container.style.overflow = 'visible';
 }

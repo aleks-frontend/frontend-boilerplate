@@ -32,7 +32,8 @@ function dynamicAssign(element) {
   const container = element.parentNode;
   container.style.overflow = 'hidden';
   const containerHeight = container.offsetHeight;
-  const subtrahendHeight = container.querySelector('.js-subtrahend').offsetHeight || 0;
+  const subtrahend = container.querySelector('.js-subtrahend');
+  const subtrahendHeight = ( subtrahend !== null ) ? subtrahend.offsetHeight : 0;
   const dynamicHeight = containerHeight - subtrahendHeight;
 
   element.dataset.maxHeightDynamic = 'true';

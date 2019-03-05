@@ -36,10 +36,14 @@ function dynamicAssign(element) {
     top: parseFloat(window.getComputedStyle(container).paddingTop),
     bottom: parseFloat(window.getComputedStyle(container).paddingBottom)
   };
-  const containerHeight = Math.floor(containerComputed.height - containerComputed.top - containerComputed.bottom + 1);
-  const subtrahend = container.querySelector('.js-subtrahend');
-  const subtrahendHeight = ( subtrahend !== null ) ? subtrahend.offsetHeight : 0;
-  const dynamicHeight = containerHeight - subtrahendHeight;
+  const containerHeight = Math.floor(containerComputed.height - containerComputed.top - containerComputed.bottom);
+  const subtrahends = [...container.querySelectorAll('.js-subtrahend')];
+
+  const subtrahendsHeight = subtrahends.reduce((totalHeight, subtrahend) => {
+    return totalHeight + subtrahend.offsetHeight;
+  }, 0);
+  
+  const dynamicHeight = containerHeight - subtrahendsHeight;
 
   element.dataset.maxHeightDynamic = 'true';
   element.dataset.maxHeight = dynamicHeight;

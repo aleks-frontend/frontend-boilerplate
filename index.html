@@ -63,16 +63,16 @@
     <script src="js/placeholder-controller.js"></script>
     <script src="js/char-limit.js"></script>
     <script src="js/check-export-mode.js"></script>
-    <script src="js/max-line-check.js"></script>    
-    <script src="js/max-height-check.js"></script>    
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
     <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
     <script>
 
       // Tracking text changes and firing text restriction functions (mutationObserver)
       const overflowObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-          maxLineCheck(); 
-          maxHeightCheck(); 
+          maxLineCheck();
+          maxHeightCheck();
           charLimit();
         });
       });
@@ -93,8 +93,8 @@
       });
 
       placeholderController();
-      checkCrop();  
-      checkExport(); 
+      checkCrop();
+      checkExport();
       charLimit();
 
       // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
@@ -103,6 +103,7 @@
       });
 
     </script>
+
 
   </body>
 </html>

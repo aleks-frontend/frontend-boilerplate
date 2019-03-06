@@ -59,3 +59,11 @@ function setSize() {
 }
 
 setSize();
+
+// Check if current browser is Firefox
+
+function firefoxCheck() {
+  if ( navigator.userAgent.includes('Firefox') ) document.body.classList.add('is-firefox');
+}
+
+firefoxCheck();

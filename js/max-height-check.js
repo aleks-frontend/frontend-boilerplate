@@ -40,7 +40,11 @@ function dynamicAssign(element) {
   const subtrahends = [...container.querySelectorAll('.js-subtrahend')];
 
   const subtrahendsHeight = subtrahends.reduce((totalHeight, subtrahend) => {
-    return totalHeight + subtrahend.offsetHeight;
+    const subtrahendMargins = {
+      top: parseFloat(window.getComputedStyle(subtrahend).marginTop),
+      bottom: parseFloat(window.getComputedStyle(subtrahend).marginBottom)
+    };
+    return totalHeight + subtrahend.offsetHeight + subtrahendMargins.top + subtrahendMargins.bottom;
   }, 0);
   
   const dynamicHeight = containerHeight - subtrahendsHeight;

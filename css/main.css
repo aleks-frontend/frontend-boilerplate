@@ -117,6 +117,10 @@
   content: 'Character limit exceeded';        
 }
 
+.overflow .token-value.token-empty {
+  display: none;
+}
+
 /* Small fix that prevents Superscript and Subscript from breaking the element's line-height */
 sup,
 sub {

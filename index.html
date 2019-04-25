@@ -48,9 +48,7 @@
   </head>
   <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
-      {{#placeholder-image-1}}
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
-      {{/placeholder-image-1}}
     </div><!-- end placeholderMaster -->
     <div class="page">
 
@@ -110,6 +108,13 @@
       TextFit.fit({
         selector: '.textFit'
       });
+      
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+    if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();
 
     </script>
 

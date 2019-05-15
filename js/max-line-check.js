@@ -9,8 +9,8 @@ function maxLineCheck(orientation = 'portrait') {
     // if the line-height is set to 'normal'
     const fontSize = parseFloat(computedStyle.getPropertyValue('font-size'));
     // If line-height is normal, we multiply the element's font-size with 1.14
-    // otherwise we get the element's line-height
-    const lineHeight = isNormal ? (fontSize * 1.14) : parseFloat(computedStyle.getPropertyValue('line-height'));
+    if ( isNormal ) block.style.lineHeight = (fontSize * 1.14) + 'px';
+    const lineHeight = parseFloat(computedStyle.getPropertyValue('line-height'));
     const blockHeight = block.scrollHeight;
     // Getting the data-max-line attribute value (max number of lines allowed)
     const maxLineAlt = block.dataset.maxLineAlt || block.dataset.maxLine;

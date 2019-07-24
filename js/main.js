@@ -8,6 +8,7 @@ Array.prototype.slice.call(document.querySelectorAll('.page'))
 .forEach(function(page) {
     var parser = new DOMParser();
     page.style.cssText = 'overflow: hidden; position: relative; height: 100vh; width: 100vw';
+    if ( window.showCrop ) document.body.classList.add('show-crop');
 
     var cropString = (
     '<div class="crop-marks">' +

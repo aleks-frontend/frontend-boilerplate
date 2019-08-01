@@ -7,7 +7,7 @@ function injectDynamicContent() {
 
       if ( repositionCheck ) {
         const targetInfo = targets[0].getBoundingClientRect();
-        const sourceCss = `position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;width:${targetInfo.width}px;height:${targetInfo.height}px;`
+        const sourceCss = `position:absolute;left:0;top:0;opacity:0;width:${targetInfo.width}px;height:${targetInfo.height}px;`;
         source.style.cssText = sourceCss;
       } else {
         source.style.display = 'none';

@@ -97,6 +97,7 @@
           maxLineCheck();
           maxHeightCheck();
           charLimit();
+          hideEmptyTitles();
         });
       });
       
@@ -135,6 +136,7 @@
         maxLineCheck();
         maxHeightCheck();
         injectDynamicContent();
+        hideEmptyTitles();
       });
 
       placeholderController();
@@ -146,13 +148,6 @@
       TextFit.fit({
         selector: '.textFit'
       });
-      
-      function detectSystem() {
-        const isMac = window.navigator.appVersion.includes('Mac');
-    if ( isMac ) document.body.classList.add('is-mac');
-      }
-
-      detectSystem();
 
     </script>
 

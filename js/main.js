@@ -62,9 +62,16 @@ function setSize() {
 setSize();
 
 // Check if current browser is Firefox
-
 function firefoxCheck() {
   if ( navigator.userAgent.includes('Firefox') ) document.body.classList.add('is-firefox');
 }
 
 firefoxCheck();
+
+// Detecting if user is on MAC operating system
+function detectSystem() {
+  const isMac = window.navigator.appVersion.includes('Mac');
+  if ( isMac ) document.body.classList.add('is-mac');
+}
+
+detectSystem();

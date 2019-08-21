@@ -14,7 +14,9 @@ function injectDynamicContent() {
       }
 
       targets.forEach(target => {
-        const imageCheck = ( source.dataset.isImage == 'true' );
+        const imageCheck = ( source.dataset.isImage === 'true' );
+        const preventConditional = target.dataset.preventConditional === 'true';
+        const emptyCheck = source.innerText === '';
 
         if ( imageCheck ) { // Checking if input is regular image input (not using reposition tool)
           target.src = `${source.innerText}`;
@@ -22,7 +24,8 @@ function injectDynamicContent() {
           target.innerHTML = `<div class="reposition-fix">${source.innerHTML}</div>`;
         } else { // Input is just a regular or rich text input
           target.innerHTML = source.innerHTML;
-        }
+          if ( emptyCheck && !preventConditional ) target.classList.add('u-hide');
+        }          
       });
     });
 }

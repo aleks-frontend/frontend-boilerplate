@@ -60,7 +60,7 @@
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
     </style>
   </head>
-  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+  <body style="background: white" data-crop="{{show-crop}}">
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
     </div><!-- end placeholderMaster -->
@@ -88,7 +88,11 @@
     <script src="js/max-height-check.js"></script>
     <script src="js/hide-empty-titles.js"></script>
     <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
     <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+      {{ #placeholder-toggle-new }}document.body.classList.add("u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}"); {{ /placeholder-toggle-new }}
+    </script>
     <script>
 
       // Tracking text changes and firing text restriction functions (mutationObserver)
@@ -148,6 +152,7 @@
       TextFit.fit({
         selector: '.textFit'
       });
+
 
     </script>
 

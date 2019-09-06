@@ -1,6 +1,6 @@
 /* Placeholder Styling */
 .placeholderMaster {
-    display: none;
+  display: none;
 }
 
 .placeholder__container {
@@ -21,10 +21,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-size: cover;
+  background-size: 100% auto;
   background-repeat: no-repeat;
-  background-position: center;   
+  background-position: top left;
   opacity: 0.4;
+  background-color: red;
 }
 
 .u-placeholder-locked .placeholder__container {

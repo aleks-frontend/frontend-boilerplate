@@ -24,8 +24,9 @@ function injectDynamicContent() {
           target.innerHTML = `<div class="reposition-fix">${source.innerHTML}</div>`;
         } else { // Input is just a regular or rich text input
           target.innerHTML = source.innerHTML;
-          if ( emptyCheck && !preventConditional ) target.classList.add('u-hide');
         }          
+        
+        if ( emptyCheck && !preventConditional ) target.classList.add('u-hide');
       });
     });
 }

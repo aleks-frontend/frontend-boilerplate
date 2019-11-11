@@ -139,3 +139,15 @@ sub {
 .is-export-mode .placeholder__trigger {
   display: none;
 }     
+
+/* Dynamic Inject container style */
+.js-dynamicInjectMaster { display: none; }
+
+.js-dynamicInjectMasterReposition {
+  position: absolute;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}

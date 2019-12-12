@@ -1,36 +1,35 @@
-function injectDynamicContent() {
-  const sources = document.querySelectorAll('.js-inject-src');
-  sources.forEach(source => {
-    const targetID = source.dataset.targetId;
-    const targets = document.querySelectorAll(`[data-target="${targetID}"]`);
-    const repositionCheck = ( source.dataset.isReposition == 'true' );
-    
-    if ( repositionCheck ) {
-      const targetInfo = targets[0].getBoundingClientRect();
-      const sourceCss = `position:absolute;left:0;top:0;opacity:0;width:${targetInfo.width}px;height:${targetInfo.height}px;`;
-      source.style.cssText = sourceCss;
-    } else {
-      source.style.display = 'none';
-    }
-
-    targets.forEach(target => {
-      const imageCheck = ( source.dataset.isImage === 'true' );
-      const preventConditional = target.dataset.preventConditional === 'true';
-      const emptyCheck = !repositionCheck && source.innerText === '';
-
-      if ( imageCheck ) { // Checking if input is regular image input (not using reposition tool)
-        target.src = `${source.innerText}`;
-      } else if ( repositionCheck ) { // Checking if input is image input with reposition tool
-        target.innerHTML = `<div class="reposition-fix">${source.innerHTML}</div>`;
-      } else { // Input is just a regular or rich text input
-        target.innerHTML = source.innerHTML;
-      }          
-      
-      if ( emptyCheck && !preventConditional ) {
-        target.classList.add('u-hide');
-      }
+function customRichText(mapObj) {
+  const sources = document.querySelectorAll('.js-customRichText-src');
+  const mapObj = {
+    '{b': '<strong>',
+    'b}': '</strong>',
+    '{i': '<i>',
+    'i}': '</i>',
+    '{h1': '<h1>',
+    'h1}': '</h1>',
+    '{h2': '<h2>',
+    'h2}': '</h2>',
+    '{nl}': '<br>'
+  };
+  sources.forEach((source, index) => {
+    // Hiding all the source elements
+    source.style.cssText = 'opacity: 0; position: absolute;';
+    // Adding 'position: relative' to parent element so the source is absolutely positioned
+    // according to it's first parent
+    source.parentNode.style.position = 'relative';
+    let formated = source.innerText;
+    // Creating a regular expression with all the keys from the mapObj
+    const regexp = new RegExp(Object.keys(mapObj).join('|'), 'gi');
+    // Running a replace method and providing the created regExp 
+    // and adding a function as a second argument
+    formated = formated.replace(regexp, (matched) => {
+      return mapObj[matched.toLowerCase()];
     });
-  });
-}
-
-injectDynamicContent();
+    if (source.parentNode.querySelector('.js-customRichText-target') === null) {
+      const target = document.createElement('div');
+      target.classList.add('js-customRichText-target');
+      source.parentNode.appendChild(target);
+      target.innerHTML = formated;
+    }
+  })
+};

@@ -16,10 +16,13 @@ function hideEmptyTitles() {
     // in case there are more elements and not all of them are empty
     childNodes.forEach(childNode => {
       const lineBreakCheck = childNode.tagName !== 'BR';
+      const tokenCheck = childNode.tagName !== 'TOKEN-VALUE';
       const emptyCheck = childNode.innerText.trim().length === 0;
       
-      if ( emptyCheck && lineBreakCheck ) {
+      if ( emptyCheck && lineBreakCheck && tokenCheck ) {
         childNode.classList.add('u-hide');
+      } else {
+        childNode.classList.remove('u-hide');
       }
     })
   });

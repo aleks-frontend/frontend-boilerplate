@@ -7,7 +7,8 @@ var cropImage = 'https://outfit-v2-exports-production.s3-accelerate.amazonaws.co
 Array.prototype.slice.call(document.querySelectorAll('.page'))
 .forEach(function(page) {
     var parser = new DOMParser();
-    page.style.cssText = 'overflow: hidden; position: relative; height: 100vh; width: 100vw';
+  	const pageHeight = window.showCrop ? 'calc(100vh - 1px)' : '100vh';
+    page.style.cssText = `overflow: hidden; position: relative; height: ${pageHeight}; width: 100vw`;
     if ( window.showCrop ) document.body.classList.add('show-crop');
 
     var cropString = (

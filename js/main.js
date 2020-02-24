@@ -54,11 +54,33 @@ Array.prototype.slice.call(document.querySelectorAll('.bleed'))
 window.addEventListener("resize", setSize);
 
 function setSize() {
-    var vw = (showCrop ? window.innerWidth : window.innerWidth + 57.62) / 100
-    var vh = (showCrop ? window.innerHeight : window.innerHeight + 57.62) / 100
-    var vmin = Math.min(vw, vh)
-    var vmax = Math.max(vw, vh)
-    document.documentElement.style.fontSize = ((vmin * 2) + (vmax * 1.4) + (vh * 2)) + "px";
+    const vw = (showCrop ? window.innerWidth : window.innerWidth + 57.62) / 100;
+    const vh = (showCrop ? window.innerHeight : window.innerHeight + 57.62) / 100;
+    const vmin = Math.min(vw, vh);
+    const vmax = Math.max(vw, vh);
+    
+    // Saving the preliminary font size calculation
+    const preliminaryCalc = (vmin * 2) + (vmax * 1.4) + (vh * 2);
+  
+    // Checking if the document is currently in export mode
+    const isExportMode = window.location.href.indexOf('exports') > -1;
+  
+    // Checking if the active browser is Firefox
+    const isFirefox = navigator.userAgent.includes('Firefox');
+    
+    // Grabbing the data-export-font-reduce-by-percent from the body element
+    const exportReduceVal = document.body.dataset.reduceExportFontSizeByPercent === undefined ? 0 : parseFloat(document.body.dataset.reduceExportFontSizeByPercent);
+  
+    // Grabbing the data-firefox-font-reduce-by-percent from the body element
+    const firefoxReduceVal = document.body.dataset.reduceFirefoxFontSizeByPercent === undefined ? 0 : parseFloat(document.body.dataset.reduceFirefoxFontSizeByPercent);
+  
+	const exportModeFontSize = preliminaryCalc - (exportReduceVal / 100 * preliminaryCalc);
+	const firefoxFontSize = preliminaryCalc - (firefoxReduceVal / 100 * preliminaryCalc);  
+  
+    // Reducing the preliminaryCalc value by reduceVal in export mode and in Firefox preview mode
+    const finalCalc = isExportMode ?  exportModeFontSize : ( isFirefox ? firefoxFontSize : preliminaryCalc);
+  
+    document.documentElement.style.fontSize = `${finalCalc}px`;
 }
 
 setSize();

@@ -99,3 +99,17 @@ function detectSystem() {
 }
 
 detectSystem();
+
+// Check if current browser is Edge for wordbreak break-word fix
+function edgeCheck() {
+    if (navigator.userAgent.includes('Edg')) {
+        return true;
+    } return false;
+}
+function wordBreakHotFix() {
+    if (edgeCheck()) {
+        let wordBreakSelector = document.querySelector("html");
+        wordBreakSelector.style.wordBreak = "break-all";
+    }
+}
+wordBreakHotFix();

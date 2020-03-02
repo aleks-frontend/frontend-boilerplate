@@ -1,4 +1,9 @@
 function maxLineCheck(orientation = 'portrait') {
+  const isExportMode = window.location.href.indexOf('exports') > -1;
+  const preventExportOverflow = document.body.dataset.preventExportOverflow === 'true';
+
+  if ( isExportMode && preventExportOverflow ) return;
+    
   const textBlocks = document.querySelectorAll('[data-max-line]');
   
   textBlocks.forEach(block => {

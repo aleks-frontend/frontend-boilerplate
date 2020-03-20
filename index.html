@@ -90,6 +90,7 @@
     <script src="js/custom-rich-text.js"></script>
     <script src="js/dynamic-inject.js"></script>
     <script src="js/text-fit-min.js"></script>
+    <script src="js/fontfaceobserver.js"></script>
     <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
     <script>
       {{ #placeholder-toggle-new }}document.body.classList.add("u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}"); {{ /placeholder-toggle-new }}
@@ -138,14 +139,27 @@
           });            
         });
       }    
-
+      
       // Calling text size restriction functions once the fonts are loaded
-      document.fonts.ready.then(() => {
-        maxLineCheck();
-        maxHeightCheck();
-        injectDynamicContent();
-        hideEmptyTitles();
-      });
+      // All external font-families need to be added to 'fonts' array
+      document.addEventListener('DOMContentLoaded', function(event) {
+        const fonts = ['Circular'];
+        const fontObservers = [];
+
+        fonts.forEach(font => {
+          const obs = new FontFaceObserver(font);
+          fontObservers.push(obs.load())
+        });
+
+        Promise.all(fontObservers).then(() => {
+          maxLineCheck();
+          maxHeightCheck();
+          injectDynamicContent();
+          hideEmptyTitles();
+
+          document.dispatchEvent(new Event('printready'));
+        });
+      });      
 
       placeholderController();
       checkCrop();

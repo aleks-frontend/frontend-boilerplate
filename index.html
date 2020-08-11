@@ -12,6 +12,16 @@
     <style>
       @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Circular/stylesheet.css');
 
+     /* order inputs */
+
+      /*
+      {{placeholder-validation}}
+      {{ placeholder-opacity }}
+      {{ placeholder-toggle-new }}
+      {{ placeholder-image-1 }}          
+      */
+      
+      
       html {
         font-family: "Circular";
         font-size: 11pt;
@@ -60,7 +70,11 @@
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
     </style>
   </head>
-  <body style="background: white" data-crop="{{show-crop}}" data-reduce-export-font-size-by-percent="0" data-reduce-firefox-font-size-by-percent="0" data-prevent-export-overflow="false">
+  <body style="background: white" 
+        data-crop="{{show-crop}}" 
+        data-reduce-export-font-size-by-percent="0" 
+        data-reduce-firefox-font-size-by-percent="0" 
+        data-prevent-export-overflow="false">
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
     </div><!-- end placeholderMaster -->
@@ -167,9 +181,12 @@
       charLimit();
 
       // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      // TEXTFIT SHOULD NOT BE CALLED MORE THAN ONCE AND SHOULD NOT BE PLACED INSIDE THE MUTATION OBSERVER
       TextFit.fit({
         selector: '.textFit'
       });
+      
+      // TEXTFITMIN should be called here in a setInterval
 
 
     </script>

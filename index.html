@@ -105,6 +105,7 @@
     <script src="js/dynamic-inject.js"></script>
     <script src="js/text-fit-min.js"></script>
     <script src="js/fontfaceobserver.js"></script>
+    <script src="js/all-images-loaded-callback.js"></script>
     <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
     <script>
       {{ #placeholder-toggle-new }}document.body.classList.add("u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}"); {{ /placeholder-toggle-new }}
@@ -166,10 +167,9 @@
         });
 
         Promise.all(fontObservers).then(() => {
-          maxLineCheck();
-          maxHeightCheck();
           injectDynamicContent();
           hideEmptyTitles();
+          allImagesLoadedCallback();
 
           document.dispatchEvent(new Event('printready'));
         });

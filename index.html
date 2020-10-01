@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-sign="OS?">
+<html data-sign="OS?" async>
   <head>
     <title>Template title</title>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <style>
       @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Circular/stylesheet.css');
 
-     /* order inputs */
+      /* order inputs */
 
       /*
       {{placeholder-validation}}
@@ -20,8 +20,8 @@
       {{ placeholder-toggle-new }}
       {{ placeholder-image-1 }}          
       */
-      
-      
+
+
       html {
         font-family: "Circular";
         font-size: 11pt;
@@ -44,7 +44,7 @@
         right: 0;
         bottom: 0;
       }
-      
+
       /* Helper classes */
       .u-hide { display: none; }
 
@@ -57,7 +57,7 @@
         bottom: 0;
         right: 0;        
       }
-      
+
       .reposition-fix div {
         top: 0 !important;
         bottom: 0 !important;
@@ -66,7 +66,7 @@
         width: 100% !important;
         height: 100% !important;
       }
-      
+
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
     </style>
   </head>
@@ -112,7 +112,7 @@
       {{ #placeholder-validation }}document.body.classList.add("placeholder__validation--{{placeholder-validation}}"){{ /placeholder-validation }}
     </script>
     <script>
-      
+
       console.clear();
 
       // Tracking text changes and firing text restriction functions (mutationObserver)
@@ -124,13 +124,13 @@
           hideEmptyTitles();
         });
       });
-      
+
       const injectObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
           injectDynamicContent();
         });
       });      
-      
+
       const injectSources = document.querySelectorAll('[data-target-id]');
 
       overflowObserver.observe(document.body, {
@@ -141,7 +141,7 @@
         attributeOldValue: false,
         characterDataOldValue: true
       });
-      
+
       if ( injectSources.length > 0 ) {
         injectSources.forEach(src => {
           injectObserver.observe(src, {
@@ -154,10 +154,10 @@
           });            
         });
       }    
-      
+
       // Calling text size restriction functions once the fonts are loaded
       // All external font-families need to be added to 'fonts' array
-      document.addEventListener('DOMContentLoaded', function(event) {
+      window.addEventListener('load', function(event) {
         const fonts = ['Circular'];
         const fontObservers = [];
 
@@ -179,14 +179,6 @@
       checkCrop();
       checkExport();
       charLimit();
-
-      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
-      // TEXTFIT SHOULD NOT BE CALLED MORE THAN ONCE AND SHOULD NOT BE PLACED INSIDE THE MUTATION OBSERVER
-      TextFit.fit({
-        selector: '.textFit'
-      });
-      
-      // TEXTFITMIN should be called here in a setInterval
 
 
     </script>

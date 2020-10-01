@@ -22,5 +22,8 @@ function allImagesLoadedCallback() {
     function allImagesLoaded() {
         maxLineCheck();
         maxHeightCheck();
+        TextFit.fit({
+            selector: '.textFit'
+        });        
     }
 }

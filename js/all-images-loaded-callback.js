@@ -12,6 +12,10 @@ function allImagesLoadedCallback() {
         tempImg.src = img.src;
     });
 
+    if (images.length === 0) {
+        allImagesLoaded();
+    }
+
     function imageLoaded() {
         imagesLoaded++;
         if (imagesLoaded == totalImages) {
@@ -24,6 +28,6 @@ function allImagesLoadedCallback() {
         maxHeightCheck();
         TextFit.fit({
             selector: '.textFit'
-        });        
+        });
     }
 }
